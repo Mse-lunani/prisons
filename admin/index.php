@@ -1,5 +1,5 @@
 <?php
-require_once('../config.php');
+require_once('../operations.php');
 require_once('inc/sess_auth.php');
 include_once 'header.php';
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
@@ -131,6 +131,7 @@ if($_settings->chk_flashdata('success')): ?>
 <!-- endbuild -->
 
 <!-- Vendors JS -->
+<script src="../sneat/assets/vendor/libs/leaflet/leaflet.js"></script>
 
 <!-- Main JS -->
 <script src="../sneat/assets/js/main.js"></script>
@@ -193,5 +194,6 @@ if($_settings->chk_flashdata('success')): ?>
         }
     })
 </script>
+<script src="../sneat/assets/js/maps-leaflet.js"></script>
 </body>
 </html>

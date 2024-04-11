@@ -48,6 +48,7 @@
     <link rel="stylesheet" href="../sneat/assets/vendor/libs/flatpickr/flatpickr.css" />
     <link rel="stylesheet" href="<?php echo base_url ?>plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="<?php echo base_url ?>plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="../sneat/assets/vendor/libs/leaflet/leaflet.css" />
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -68,6 +69,7 @@
         var _base_url_ = '<?php echo base_url ?>';
     </script>
     <script src="<?php echo base_url ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../sneat/assets/vendor/js/helpers.js"></script>
 </head>
 <body>
 <!-- Layout wrapper -->

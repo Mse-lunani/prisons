@@ -104,6 +104,20 @@
                     <div data-i18n="System info"> System Info</div>
                 </a>
             </li>
+<!--            <li class="menu-item">-->
+<!--                <a href="--><?php //echo base_url ?><!--admin/?page=devices/add_device" class="menu-link nav-system_info">-->
+<!--                    <i class="menu-icon tf-icons bx bxs-grid"></i>-->
+<!---->
+<!--                    <div data-i18n="Devices">Devices</div>-->
+<!--                </a>-->
+<!--            </li>-->
+            <li class="menu-item">
+            <a href="<?php echo base_url ?>admin/?page=devices/location" class="menu-link nav-system_info">
+                <i class="menu-icon tf-icons bx bxs-pin"></i>
+
+                <div data-i18n="Map">Device Map</div>
+            </a>
+            </li>
         <?php endif; ?>
 
     </ul>

@@ -4561,11 +4561,11 @@
   // --------------------------------------------------------------------
   const layerControlVar = document.getElementById('layerControl');
   if (layerControlVar) {
-    const littleton = L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.'),
-      denver = L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.'),
-      aurora = L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.'),
-      golden = L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.');
-    const cities = L.layerGroup([littleton, denver, aurora, golden]);
+    const littleton = L.marker([-1.33, 36.78]).bindPopup('This is Langata, Police.'),
+      denver = L.marker([-1.31, 36.81]).bindPopup('This is Tmall, Langata.'),
+      aurora = L.marker([-1.30, 36.79]).bindPopup('This is Mbagathi Hospital');
+
+    const cities = L.layerGroup([littleton, denver, aurora]);
     const street = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>',
         maxZoom: 18
@@ -4575,8 +4575,8 @@
         maxZoom: 18
       });
     const layerControl = L.map('layerControl', {
-      center: [39.73, -104.99],
-      zoom: 10,
+      center: [-1.33, 36.78],
+      zoom: 12,
       layers: [street, cities]
     });
     const baseMaps = {
