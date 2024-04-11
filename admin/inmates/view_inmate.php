@@ -133,7 +133,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 </div>
             </div>
             <div class="card-body container-fluid">
-                <table class="table table-striped table-bordered" id="record-table">
+                <table class="table table-striped table-hover datatables-basic table-bordered" id="record-table">
                     <colgroup>
                         <col width="15%">
                         <col width="25%">

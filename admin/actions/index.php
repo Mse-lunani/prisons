@@ -20,7 +20,7 @@
 	</div>
 	<div class="card-body">
         <div class="container-fluid">
-			<table class="table table-hover table-striped table-bordered" id="list">
+			<table class="table table-striped table-hover datatables-basic" id="list">
 				<colgroup>
 					<col width="5%">
 					<col width="20%">

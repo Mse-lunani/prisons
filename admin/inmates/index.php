@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-hover table-striped table-bordered" id="list">
+                    <table class="table table-striped table-hover datatables-basic" id="list">
                         <colgroup>
                             <col width="5%">
                             <col width="20%">
