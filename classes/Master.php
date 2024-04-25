@@ -170,6 +170,19 @@ Class Master extends DBConnection {
         return json_encode($resp);
 
     }
+    function delete_movement(){
+        extract($_POST);
+        $del = $this->conn->query("UPDATE `movement` set `delete_flag` = 1 where id = '{$id}'");
+        if($del){
+            $resp['status'] = 'success';
+            $this->settings->set_flashdata('success'," Cell Block successfully deleted.");
+        }else{
+            $resp['status'] = 'failed';
+            $resp['error'] = $this->conn->error;
+        }
+        return json_encode($resp);
+
+    }
 	function save_crime(){
 		extract($_POST);
 		$data = "";
@@ -514,6 +527,9 @@ switch ($action) {
         break;
     case 'delete_exempt_list':
         echo $Master->delete_exempt_list();
+        break;
+    case 'delete_movement':
+        echo $Master->delete_movement();
         break;
 	case 'save_crime':
 		echo $Master->save_crime();

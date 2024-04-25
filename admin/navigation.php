@@ -114,6 +114,16 @@
                 </a>
             </li>
 
+            <li class="menu-header small text-uppercase">Inmate Movement</li>
+            <li class="menu-item">
+                <a href="./?page=movement" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate Movement">Inmate Movement</div>
+                </a>
+            </li>
+
+
 
             <li class="menu-header small text-uppercase">Maintenance</li>
             <li class="menu-item">
