@@ -56,7 +56,7 @@ ORDER BY
                         <td class="text-center"><?php echo $i++; ?></td>
                         <td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
                         <td class=""><?= $row['name'] ?></td>
-                        <td class=""><?= $row['amount'] ?></td>
+                        <td class=""><?= $row['total_amount'] ?></td>
 
 
 
