@@ -183,6 +183,20 @@ Class Master extends DBConnection {
         return json_encode($resp);
 
     }
+function delete_inmate_wallet(){
+        extract($_POST);
+        $del = $this->conn->query("UPDATE `inmate_wallet` set `delete_flag` = 1 where id = '{$id}'");
+        if($del){
+            $resp['status'] = 'success';
+            $this->settings->set_flashdata('success'," Cell Block successfully deleted.");
+        }else{
+            $resp['status'] = 'failed';
+            $resp['error'] = $this->conn->error;
+        }
+        return json_encode($resp);
+
+    }
+
 	function save_crime(){
 		extract($_POST);
 		$data = "";
@@ -530,6 +544,9 @@ switch ($action) {
         break;
     case 'delete_movement':
         echo $Master->delete_movement();
+        break;
+    case 'delete_inmate_wallet':
+        echo $Master->delete_inmate_wallet();
         break;
 	case 'save_crime':
 		echo $Master->save_crime();

@@ -123,6 +123,15 @@
                 </a>
             </li>
 
+            <li class="menu-header small text-uppercase">Inmate Wallet</li>
+            <li class="menu-item">
+                <a href="./?page=inmate_wallet" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate wallet">Inmate Wallet</div>
+                </a>
+            </li>
+
 
 
             <li class="menu-header small text-uppercase">Maintenance</li>
