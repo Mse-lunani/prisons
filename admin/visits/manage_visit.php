@@ -32,6 +32,10 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 			<label for="contact" class="control-label">Contact #</label>
 			<input type="text" name="contact" id="contact" class="form-control  rounded-0" value="<?php echo isset($contact) ? $contact : ''; ?>"  required/>
 		</div>
+        <div class="form-group">
+            <label for="date_to_arrive" class="control-label">Date to arrive</label>
+            <input type="date" name="date_to_arrive" id="date_to_arrive" class="form-control  rounded-0" value="<?php echo isset($date_to_arrive) ? $date_to_arrive : ''; ?>"  required/>
+        </div>
 		<div class="form-group">
 			<label for="relation" class="control-label">Relation</label>
 			<input type="text" name="relation" id="relation" class="form-control  rounded-0" value="<?php echo isset($relation) ? $relation : ''; ?>"  required/>

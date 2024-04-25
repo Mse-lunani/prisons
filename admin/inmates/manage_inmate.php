@@ -11,6 +11,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
        $crime_ids = array_column($crimes->fetch_all(MYSQLI_ASSOC),'crime_id');
     }
 }
+$cd = rand(10000,99999);
 ?>
 <style>
     img#cimg{
@@ -30,13 +31,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                     <form action="" id="inmate-form">
                         <input type="hidden" name="id" value="<?= isset($id) ? $id : '' ?>">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                 <div class="form-group">
                                     <label for="code" class="control-label">Code</label>
-                                    <input type="text" class="form-control  rounded-0" name="code" id="code" required="required" value="<?= isset($code) ? $code : "" ?>">
+                                    <input type="text" class="form-control  rounded-0" readonly name="code" id="code" required="required" value="<?= isset($code) ? $code : $cd ?>">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                                     <div class="form-group">
                                         <label for="cell_id" class="control-label">Prison & Cell Block</label>
                                         <select class="form-control  rounded-0" name="cell_id" id="cell_id" required="required">
@@ -50,6 +51,20 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                                         </select>
                                     </div>
                                 </div>
+                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <div class="form-group">
+                                    <label for="cell_id" class="control-label">Prison Type</label>
+                                    <select class="form-control rounded-0" name="prison_type_id" id="prison_type_id" required="required">
+                                        <option value="" <?= !isset($prison_type_id) ? 'selected' : '' ?>>Choose an option</option>
+                                        <?php
+                                        $cells = $conn->query("SELECT * FROM `prison_types` order by name asc");
+                                        while($row = $cells->fetch_assoc()):
+                                            ?>
+                                            <option value="<?= $row['id'] ?>" <?= isset($prison_type_id) && $prison_type_id == $row['id'] ? 'selected' : '' ?>><?= $row['name'] ?></option>
+                                        <?php endwhile; ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -193,7 +208,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                     <div class="form-group">
-                                        <label for="" class="control-label">Inamate Image</label>
+                                        <label for="" class="control-label">Inmate Image</label>
                                         <div class="custom-file custom-file-sm rounded-0">
                                             <input type="file" class="custom-file-input rounded-0" id="customFile1" name="img" onchange="displayImg(this)">
                                             <label class="custom-file-label rounded-0" for="customFile1">Choose file</label>
@@ -205,6 +220,21 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                                         <img src="<?php echo validate_image(isset($image_path) ? $image_path : '') ?>" alt="" id="cimg" class="img-fluid img-thumbnail">
                                     </div>
                                 </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="border px-2 py-2">
+                            <legend class="w-auto mx-3" >Charge sheet</legend>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label for="" class="control-label">Inmate Charge sheet</label>
+                                        <div class="custom-file custom-file-sm rounded-0">
+                                            <input type="file" class="custom-file-input rounded-0" id="customFile1" name="charge_sheet">
+                                            <label class="custom-file-label rounded-0" for="customFile1">Choose file</label>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </fieldset>
                     </form>
@@ -243,6 +273,11 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         })
         $('#cell_id').select2({
             placeholder:"Please select inmate cell block here",
+            width:'100%',
+            containerCssClass:'form-control form-control-sm rounded-0'
+        });
+        $('#prison_type_id').select2({
+            placeholder:"Please choose an option",
             width:'100%',
             containerCssClass:'form-control form-control-sm rounded-0'
         })

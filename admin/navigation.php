@@ -28,14 +28,16 @@
                 <div data-i18n=" Inmate List"> Inmate List</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="./?page=visits" class="menu-link nav-visits">
-                <i class="menu-icon tf-icons bx bxs-user"></i>
-                <div data-i18n="Visitor List"> Vistor List</div>
-            </a>
-        </li>
+
         <?php if($_settings->userdata('type') == 1): ?>
             <li class="menu-header small text-uppercase">Master List</li>
+            <li class="menu-item">
+                <a href="./?page=prison_type" class="menu-link nav-actions">
+                    <i class="menu-icon tf-icons bx bxs-bookmark-alt"></i>
+
+                    <div data-i18n="Prison Type"> Prison Type</div>
+                </a>
+            </li>
             <li class="menu-item">
                 <a href="./?page=prisons" class="menu-link nav-prisons">
 
@@ -89,6 +91,30 @@
                     </li>
                 </ul>
             </li>
+
+
+            <li class="menu-header small text-uppercase">Gate Management</li>
+            <li class="menu-item">
+                <a href="./?page=exempt_list" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Exempt List">Exempt List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=visits" class="menu-link nav-visits">
+                    <i class="menu-icon tf-icons bx bxs-user"></i>
+                    <div data-i18n="Visitor Request List"> Vistor Request List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=admit_visitor" class="menu-link nav-visits">
+                    <i class="menu-icon tf-icons bx bxs-user"></i>
+                    <div data-i18n="Admit Visitor">Admit Visitor</div>
+                </a>
+            </li>
+
+
             <li class="menu-header small text-uppercase">Maintenance</li>
             <li class="menu-item">
                 <a href="<?php echo base_url ?>admin/?page=user/list" class="menu-link nav-user_list">
@@ -118,6 +144,9 @@
                 <div data-i18n="Map">Device Map</div>
             </a>
             </li>
+
+
+
         <?php endif; ?>
 
     </ul>

@@ -15,6 +15,9 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         if($cell_block_qry->num_rows > 0)
          $cell_block = $cell_block_qry->fetch_array()[0];
     }
+    $id = security_get("id");
+    $sql = "select * from inmate_list where id = '$id'";
+    $item = select_rows($sql)[0];
 }
 ?>
 <style>
@@ -122,6 +125,19 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             <div class="col-auto m-0 p-2 border flex-shrink-1 flex-grow-1"><?= isset($emergency_contact) ? $emergency_contact : '' ?></div>
                         </div>
                     </fieldset>
+                    <?php
+                    if (isset($charge_sheet)){
+                    ?>
+                    <fieldset class="border px-2 pb-2">
+                        <legend class="w-auto mx-3 px-2">Charge Sheet</legend>
+                        <div class="d-flex w-100">
+                           <a class="btn btn-success" target="_blank" href="../uploads/<?= $charge_sheet ?>">
+                               <i class="fa fa-download text-white" ></i>
+                           </a>
+                        </div>
+
+                    </fieldset>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -251,16 +267,19 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 	}
     $(function(){
         $('#update_privilege').click(function(){
-            uni_modal('Update <b>Inmate-<?= isset($code) ? $code : '' ?></b>\'s Visitor Privilege', 'inmates/manage_privilege.php?id=<?= isset($id) ? $id : '' ?>')
+            uni_modal('Update <b>Inmate-<?= isset($code) ? $code : '' ?></b>\'s Visitor Privilege', 'inmates/manage_privilege.php?id=<?= isset($id) ? $id : '' ?>');
+            $("#uni_modal").modal("show");
         })
         $('#delete-inmate').click(function(){
 			_conf("Are you sure to delete this Inmate permanently?","delete_inmate",['<?= isset($id) ? $id : '' ?>'])
 		})
         $('#add_record').click(function(){
-            uni_modal('<i class="far fa-plus-square"></i> Add Record for <b>Inmate - <?= isset($code) ? $code : '' ?></b>', 'inmates/manage_record.php?inmate_id=<?= isset($id) ? $id : '' ?>')
+            uni_modal('<i class="far fa-plus-square"></i> Add Record for <b>Inmate - <?= isset($code) ? $code : '' ?></b>', 'inmates/manage_record.php?inmate_id=<?= isset($id) ? $id : '' ?>');
+            $("#uni_modal").modal("show");
         })
         $('.edit-record').click(function(){
-            uni_modal('<i class="far fa-edit"></i> Edit Record', 'inmates/manage_record.php?id='+$(this).attr('data-id'))
+            uni_modal('<i class="far fa-edit"></i> Edit Record', 'inmates/manage_record.php?id='+$(this).attr('data-id'));
+            $("#uni_modal").modal("show");
         })
         $('.delete-record').click(function(){
             _conf("Are you sure to delete this record?", "delete_record", [$(this).attr('data-id')])

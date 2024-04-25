@@ -30,6 +30,7 @@
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="../sneat/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../sneat/dist/fonts/fontawesome.css" />
 
     <!-- <link rel="stylesheet" href="../sneat/assets/vendor/fonts/fontawesome.css" /> -->
     <!-- <link rel="stylesheet" href="../sneat/assets/vendor/fonts/flag-icons.css" /> -->

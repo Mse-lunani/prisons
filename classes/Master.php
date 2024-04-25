@@ -1,5 +1,6 @@
 <?php
 require_once('../config.php');
+require_once ('../operations.php');
 Class Master extends DBConnection {
 	private $settings;
 	public function __construct(){
@@ -143,6 +144,32 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 
 	}
+    function delete_prison_type(){
+        extract($_POST);
+        $del = $this->conn->query("UPDATE `prison_types` set `delete_flag` = 1 where id = '{$id}'");
+        if($del){
+            $resp['status'] = 'success';
+            $this->settings->set_flashdata('success'," Cell Block successfully deleted.");
+        }else{
+            $resp['status'] = 'failed';
+            $resp['error'] = $this->conn->error;
+        }
+        return json_encode($resp);
+
+    }
+    function delete_exempt_list(){
+        extract($_POST);
+        $del = $this->conn->query("UPDATE `exempt_list` set `delete_flag` = 1 where id = '{$id}'");
+        if($del){
+            $resp['status'] = 'success';
+            $this->settings->set_flashdata('success'," Cell Block successfully deleted.");
+        }else{
+            $resp['status'] = 'failed';
+            $resp['error'] = $this->conn->error;
+        }
+        return json_encode($resp);
+
+    }
 	function save_crime(){
 		extract($_POST);
 		$data = "";
@@ -276,6 +303,10 @@ Class Master extends DBConnection {
 				}
 				imagedestroy($temp);
 			}
+            $charge_sheet = upload_docs("charge_sheet");
+            if($charge_sheet){
+                $qry = $this->conn->query("UPDATE inmate_list set charge_sheet = '$charge_sheet' where id = '{$iid}' ");
+            }
 		}else{
 			$resp['status'] = 'failed';
 			$resp['msg'] = $this->conn->error."[{$sql}]";
@@ -478,6 +509,12 @@ switch ($action) {
 	case 'delete_cell':
 		echo $Master->delete_cell();
 	break;
+    case 'delete_prison_type':
+        echo $Master->delete_prison_type();
+        break;
+    case 'delete_exempt_list':
+        echo $Master->delete_exempt_list();
+        break;
 	case 'save_crime':
 		echo $Master->save_crime();
 	break;

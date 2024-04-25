@@ -13,7 +13,7 @@
 </style>
 <div class="card card-outline rounded-0 card-navy">
 	<div class="card-header">
-		<h3 class="card-title">List of Visits</h3>
+		<h3 class="card-title">List of Visit Requests</h3>
 		<div class="card-tools">
 			<a href="javascript:void(0)" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
 		</div>
@@ -36,13 +36,17 @@
 						<th>Inmate</th>
 						<th>Visitor</th>
 						<th>Contact #</th>
+                        <th>Date of visit</th>
 						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php 
 					$i = 1;
-						$qry = $conn->query("SELECT v.*, i.code, concat(i.lastname,', ', i.firstname, coalesce(concat(' ', i.middlename), '')) as `inmate` from `visit_list` v inner join inmate_list i on v.inmate_id = i.id order by abs(unix_timestamp(v.date_created)) desc ");
+						$qry = $conn->query("SELECT v.*, i.code, concat(i.lastname,', ', i.firstname, coalesce(concat(' ', i.middlename), '')) as
+                        `inmate` from `visit_list` v inner join inmate_list i on v.inmate_id = i.id 
+                        where v.status = 'pending'
+                        order by abs(unix_timestamp(v.date_created)) desc ");
 						while($row = $qry->fetch_assoc()):
 					?>
 						<tr>
@@ -62,6 +66,9 @@
 							</td>
 							<td class="text-center">
                                <?= $row['contact'] ?>
+                            </td>
+                            <td class="text-center">
+                                <?= $row['date_to_arrive'] ?>
                             </td>
 							<td align="center">
 
@@ -112,7 +119,7 @@
 		})
 		$('.table').dataTable({
 			columnDefs: [
-					{ orderable: false, targets: [4] }
+					{ orderable: false, targets: [6] }
 			],
 			order:[0,'asc']
 		});

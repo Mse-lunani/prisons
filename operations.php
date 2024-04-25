@@ -217,11 +217,14 @@ function upload($name2)
     }
 }
 
-function upload_docs($name2)
+function upload_docs($name2,$path = "")
 {
     if (isset($_FILES[$name2]["name"]) && $_FILES[$name2]["name"] != '') {
 
-        $target_dir = "../documents/";
+        $target_dir = "../uploads/";
+        if($path != ""){
+            $target_dir = $path;
+        }
         $rand = rand(1000, 9000);
         $name = basename($_FILES[$name2]["name"]);
         $tmpname = $_FILES[$name2]["tmp_name"];
@@ -273,11 +276,10 @@ function insert_edit_form($table_name)
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
             unset($_POST['id']);
-            build_sql_edit($table_name, $arr, $id);
-            return true;
+            return  build_sql_edit($table_name, $arr, $id);
+
         } else {
-            build_sql_insert($table_name, $arr);
-            return true;
+            return build_sql_insert($table_name, $arr);
         }
     }
     return false;
