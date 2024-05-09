@@ -1,5 +1,6 @@
 <?php
 require_once '../config.php';
+require_once '../operations.php';
 class Login extends DBConnection {
 	private $settings;
 	public function __construct(){
@@ -20,6 +21,7 @@ class Login extends DBConnection {
 
 		$stmt = $this->conn->prepare("SELECT * from users where username = ? and password = ? ");
 		$password = md5($password);
+        $email = security("username");
 		$stmt->bind_param('ss',$username,$password);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -32,7 +34,22 @@ class Login extends DBConnection {
 			}
 			$this->settings->set_userdata('login_type',1);
 		return json_encode(array('status'=>'success'));
-		}else{
+		}
+        else{
+            $sql = "select * from officers where email = '$email' and password = '$password'";
+            $row = select_rows($sql);
+            if(!empty($row)){
+                $user = $row[0];
+                $this->settings->set_userdata(0,$user);
+                $this->settings->set_userdata('type',$user['type']);
+                $this->settings->set_userdata('login_type',$user['type']);
+                return json_encode(array('status'=>'success'));
+            }
+
+
+
+
+
 		return json_encode(array('status'=>'incorrect','last_qry'=>"SELECT * from users where username = '$username' and password = md5('$password') "));
 		}
 	}

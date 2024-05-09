@@ -2,7 +2,9 @@
 require_once('../operations.php');
 require_once('inc/sess_auth.php');
 include_once 'header.php';
-$page = isset($_GET['page']) ? $_GET['page'] : 'home';
+
+
+$page = $_GET['page'] ?? "home";
 if($_settings->chk_flashdata('success')): ?>
     <script>
       alert_toast("<?php echo $_settings->flashdata('success') ?>",'success')

@@ -70,7 +70,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                     if(typeof resp =='object' && resp.status == 'success'){
                         // location.reload()
                         alert_toast(resp.msg, 'success')
-                        uni_modal("<i class='fa fa-th-list'></i> inmate_wallet Details ","view_inmate_wallet.php?id="+resp.id)
+                        uni_modal("<i class='fa fa-th-list'></i> inmate_wallet Details ","inmate_wallet/view_inmate_wallet.php?id="+resp.id)
                         $('#uni_modal').on('hide.bs.modal', function(){
                             location.reload()
                         })

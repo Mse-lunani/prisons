@@ -22,14 +22,15 @@
                 <div data-i18n="Dashboard"> Dashboard</div>
             </a>
         </li>
-        <li class="menu-item">
-            <a href="./?page=inmates" class="menu-link nav-inmates">
-                <i class="menu-icon tf-icons bx bxs-user"></i>
-                <div data-i18n=" Inmate List"> Inmate List</div>
-            </a>
-        </li>
+
 
         <?php if($_settings->userdata('type') == 1): ?>
+            <li class="menu-item">
+                <a href="./?page=inmates" class="menu-link nav-inmates">
+                    <i class="menu-icon tf-icons bx bxs-user"></i>
+                    <div data-i18n=" Inmate List"> Inmate List</div>
+                </a>
+            </li>
             <li class="menu-header small text-uppercase">Master List</li>
             <li class="menu-item">
                 <a href="./?page=prison_type" class="menu-link nav-actions">
@@ -92,6 +93,59 @@
                 </ul>
             </li>
 
+            <li class="menu-header small text-uppercase">Medical Management</li>
+            <li class="menu-item">
+                <a href="./?page=officers&type=medics" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Medical officers">Medical Officers</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=medical/inmate_list" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate Screening"> Inmate List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=medical/view_tests" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-injection"></i>
+
+                    <div data-i18n="Test Management">Test Management</div>
+                </a>
+            </li>
+
+            <li class="menu-header small text-uppercase">Education & Career</li>
+            <li class="menu-item">
+                <a href="./?page=officers&type=education" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Education officers">Education Officers</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=education/" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate Certificates"> Inmate List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=education/trainings" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Trainings">Trainings</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=education/jobs" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Jobs">Jobs</div>
+                </a>
+            </li>
+
 
             <li class="menu-header small text-uppercase">Gate Management</li>
             <li class="menu-item">
@@ -122,6 +176,7 @@
                     <div data-i18n="Inmate Movement">Inmate Movement</div>
                 </a>
             </li>
+
 
             <li class="menu-header small text-uppercase">Inmate Wallet</li>
             <li class="menu-item">
@@ -167,6 +222,56 @@
 
 
         <?php endif; ?>
+
+        <?php if($_settings->userdata('login_type') == "medics"){?>
+            <li class="menu-header small text-uppercase">Medical Management</li>
+
+            <li class="menu-item">
+                <a href="./?page=medical/inmate_list" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate Screening"> Inmate List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=medical/view_tests" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-injection"></i>
+
+                    <div data-i18n="Test Management">Test Management</div>
+                </a>
+            </li>
+
+
+        <?php } ?>
+        <?php if($_settings->userdata('login_type') == "education"){?>
+            <li class="menu-header small text-uppercase">Education & Career</li>
+
+            <li class="menu-item">
+                <a href="./?page=education/" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate Certificates"> Inmate List</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=education/trainings" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Trainings">Trainings</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=education/jobs" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Jobs">Jobs</div>
+                </a>
+            </li>
+
+
+        <?php } ?>
+
+
 
     </ul>
 </aside>

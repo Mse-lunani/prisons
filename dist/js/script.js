@@ -37,6 +37,7 @@ $(document).ready(function() {
 
                 },
                 success: function(resp) {
+                    console.log(resp)
                     if (resp) {
                         resp = JSON.parse(resp)
                         if (resp.status == 'success') {
