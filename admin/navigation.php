@@ -92,6 +92,28 @@
                     </li>
                 </ul>
             </li>
+            <li class="menu-header small text-uppercase">Store Management</li>
+            <li class="menu-item">
+                <a href="./?page=officers&type=store_keeper" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Store Keepers">Store Keepers</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=store/items" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-grid"></i>
+
+                    <div data-i18n="Store Items">Store Items</div>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="./?page=store/inmate_list" class="menu-link nav-cells">
+                    <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                    <div data-i18n="Inmate onboarding"> Inmate onboarding</div>
+                </a>
+            </li>
 
             <li class="menu-header small text-uppercase">Medical Management</li>
             <li class="menu-item">
@@ -269,6 +291,24 @@
             </li>
 
 
+        <?php } ?>
+
+        <?php if($_settings->userdata('login_type') == "store_keeper"){?>
+        <li class="menu-header small text-uppercase">Store Management</li>
+        <li class="menu-item">
+            <a href="./?page=store/items" class="menu-link nav-cells">
+                <i class="menu-icon tf-icons bx bxs-grid"></i>
+
+                <div data-i18n="Store Items">Store Items</div>
+            </a>
+        </li>
+        <li class="menu-item">
+            <a href="./?page=store/inmate_list" class="menu-link nav-cells">
+                <i class="menu-icon tf-icons bx bxs-user-badge"></i>
+
+                <div data-i18n="Inmate onboarding"> Inmate onboarding</div>
+            </a>
+        </li>
         <?php } ?>
 
 

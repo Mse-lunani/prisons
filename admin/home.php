@@ -155,3 +155,100 @@
 
 </div>
 
+
+<?php if($_settings->userdata('type') == 1): ?>
+<h3 class="m-3">List of pending Inmates</h3>
+<div class="card card-outline rounded-0 card-navy">
+
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped table-hover datatables-basic" id="list">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="30%">
+                            <col width="10%">
+                            <col width="15%">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date Created</th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Progress</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php
+                        $i = 1;
+                        $qry = $conn->query("SELECT *,concat(lastname,', ', firstname, coalesce(concat(' ', middlename), '')) as `name` from `inmate_list` order by `name` asc ");
+                        while($row = $qry->fetch_assoc()):
+                            if(progress_bar($row['id']) == 100)
+                                continue;
+                            ?>
+                            <tr>
+                                <td class="text-center"><?php echo $i++; ?></td>
+                                <td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
+                                <td class=""><?= $row['code'] ?></td>
+                                <td class=""><?= $row['name'] ?></td>
+                                <td class="text-center">
+                                    <?= progress_bar($row['id'])  ?>%
+                                </td>
+                                <td align="center">
+                                    <a href="?page=inmates/view_inmate&id=<?php echo $row['id'] ?>" class="btn btn-sm btn-primary">
+                                        continue with registration
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('.delete_data').click(function(){
+            _conf("Are you sure to delete this Inmate permanently?","delete_inmate",[$(this).attr('data-id')])
+        })
+        $('.table').dataTable({
+            columnDefs: [
+                { orderable: false, targets: [5] }
+            ],
+            order:[0,'asc']
+        });
+        $('.dataTable td,.dataTable th').addClass('py-1 px-2 align-middle')
+    })
+    function delete_inmate($id){
+        start_loader();
+        $.ajax({
+            url:_base_url_+"classes/Master.php?f=delete_inmate",
+            method:"POST",
+            data:{id: $id},
+            dataType:"json",
+            error:err=>{
+                console.log(err)
+                alert_toast("An error occured.",'error');
+                end_loader();
+            },
+            success:function(resp){
+                if(typeof resp== 'object' && resp.status == 'success'){
+                    location.reload();
+                }else{
+                    alert_toast("An error occured.",'error');
+                    end_loader();
+                }
+            }
+        })
+    }
+</script>
+<?php endif; ?>
+

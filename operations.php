@@ -515,3 +515,29 @@ function get_edit_link($link){
     </a>
     <?php
 }
+
+function progress_bar($id){
+    $total = 5;
+    $no = 1;
+    $sql = "select * from inmate_items where inmate_id = '$id'";
+    $row = select_rows($sql);
+    if(!empty($row)){
+        $no ++;
+    }
+    $sql = "select * from inmate_items_from_prison where inmate_id = '$id'";
+    $row = select_rows($sql);
+    if(!empty($row)){
+        $no ++;
+    }
+    $sql = "select * from inmate_certs where inmate_id = '$id'";
+    $row = select_rows($sql);
+    if(!empty($row)){
+        $no ++;
+    }
+    $sql = "select * from inmate_screening_order where inmate_id = '$id'";
+    $row = select_rows($sql);
+    if(!empty($row)){
+        $no ++;
+    }
+    return $no/$total * 100;
+}

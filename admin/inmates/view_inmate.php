@@ -1,4 +1,5 @@
 <?php
+
 if(isset($_GET['id']) && $_GET['id'] > 0){
     $qry = $conn->query("SELECT *,concat(lastname,', ', firstname, coalesce(concat(' ', middlename), '')) as `name` from `inmate_list` where id = '{$_GET['id']}' ");
     if($qry->num_rows > 0){
@@ -19,6 +20,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     $sql = "select * from inmate_list where id = '$id'";
     $item = select_rows($sql)[0];
 }
+
+
+
+
+
+$progress = progress_bar($id);
+
 ?>
 <style>
     img#cimg{
@@ -32,6 +40,15 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 </div>
 <div class="row mt-n4 justify-content-center align-items-center flex-column">
     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <div class="progress">
+            <div
+                    class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                    role="progressbar"
+                    style="width: <?=$progress?>%"
+                    aria-valuenow="<?= $progress ?>"
+                    aria-valuemin="0"
+                    aria-valuemax="100"></div>
+        </div>
         <div class="card rounded-0 shadow">
             <div class="card-header py-1 text-center">
                 <div class="card-tools p-3">
@@ -189,6 +206,239 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         </div>
     </div>
 </div>
+
+<!--store-->
+<div class="row mt-4 justify-content-center align-items-center flex-column">
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+    <div class="mb-3 content py-3 bg-gradient-navy px-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Inmate Retrieved Item History</h2>
+            <a href="?page=store/take&id=<?= $id ?>" class="btn btn-primary">Retrieve inmate item</a>
+        </div>
+    </div>
+
+    <?php
+    $sql = "select * from inmate_items where inmate_id = '$id'";
+    $items = select_rows($sql);
+
+    if(empty($items)){
+        echo "<div class='alert alert-info'>No inmate items yet</div>";
+    } else{
+        ?>
+        <div class="row mt-n4 mb-2 justify-content-center align-items-center flex-column">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <th>Name of item</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                        </thead>
+                        <?php
+                        foreach ($items as $item){
+                            ?>
+                            <tr>
+                                <td><?= $item['name'] ?></td>
+                                <td><?= $item['description'] ?></td>
+                                <td>
+                                    <a href="model/delete_inmate_item.php?id=<?= $item['id'] ?>&inmate_id=<?= $item['inmate_id'] ?>" class="btn btn-danger btn-sm">
+                                        <i class="bx bxs-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    <?php }  ?>
+
+
+    <div class="mb-3 content py-3 bg-gradient-navy px-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>Inmate Item History</h2>
+            <a href="?page=store/give&id=<?= $id ?>" class="btn btn-primary">Give inmate an item</a>
+        </div>
+    </div>
+
+    <?php
+    $sql = "select * from inmate_items_from_prison where inmate_id = '$id'";
+    $items = select_rows($sql);
+
+    if(empty($items)){
+        echo "<div class='alert alert-info'>No inmate items yet</div>";
+    } else{
+        ?>
+        <div class="row mt-n4 mb-2 justify-content-center align-items-center flex-column">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <th>Name of item</th>
+                        <th>Quantity</th>
+                        <th>Action</th>
+                        </thead>
+                        <?php
+                        foreach ($items as $item){
+                            ?>
+                            <tr>
+                                <td><?= $item['name'] ?></td>
+                                <td><?= $item['quantity'] ?></td>
+                                <td>
+                                    <a href="model/delete_inmate_item2.php?id=<?= $item['id'] ?>&inmate_id=<?= $item['inmate_id'] ?>" class="btn btn-danger btn-sm">
+                                        <i class="bx bxs-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    <?php }  ?>
+    </div>
+</div>
+<!-- //store -->
+
+
+<!--medical-->
+<div class="row mt-4 justify-content-center align-items-center flex-column">
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+<div class="mb-3 content py-3 bg-gradient-navy px-3">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2>Screening History</h2>
+        <a href="?page=medical/screen_inmate&id=<?= $id ?>" class="btn btn-primary">Create New Screening</a>
+    </div>
+</div>
+
+<?php
+$sql = "select * from inmate_screening_order where inmate_id = '$id'";
+$orders = select_rows($sql);
+
+if(empty($orders)){
+    echo "<div class='alert alert-info'>No Screening History</div>";
+}
+
+foreach ($orders as $item){
+    $sql = "select * from inmate_screening_test where screening_id = '$item[id]'";
+    $screenings = select_rows($sql);
+    ?>
+    <div class="row mt-n4 mb-2 justify-content-center align-items-center flex-column">
+        <div class="card">
+            <div class="card-body">
+                <h5>Screening Order</h5>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <th>Date</th>
+                    <th>Reason</th>
+                    </thead>
+                    <tr>
+                        <td><?= $item['date'] ?></td>
+                        <td><?= $item['reason'] ?></td>
+                    </tr>
+                </table>
+                <h6 class="m-3">Screening Results</h6>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <th>Test</th>
+                    <th>Result</th>
+                    </thead>
+                    <?php
+                    foreach ($screenings as $screening){
+                        $sql = "select * from test where id = '$screening[test_id]'";
+                        $test = select_rows($sql);
+                        $test = $test[0];
+                        $sql = "select * from results where id = '$screening[result_id]'";
+                        $result = select_rows($sql);
+                        $result = $result[0];
+                        ?>
+                        <tr>
+                            <td><?= $test['name'] ?></td>
+                            <td><?= $result['result'] ?></td>
+                        </tr>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+<?php } ?>
+    </div>
+</div>
+<!--/medical-->
+
+<!--education-->
+<div class="row mt-4 justify-content-center align-items-center flex-column">
+    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+        <div class="mb-3 content py-3 bg-gradient-navy px-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Certificates</h2>
+                <a href="?page=education/create_certs&id=<?= $id ?>" class="btn btn-primary">Create New Certificate</a>
+            </div>
+        </div>
+
+        <?php
+        $sql = "select * from inmate_certs where inmate_id = '$id'";
+        $certs = select_rows($sql);
+
+        if(empty($certs)){
+            echo "<div class='alert alert-info'>No certifications</div>";
+        }else{
+            ?>
+            <div class="row mt-n4 justify-content-center align-items-center flex-column">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped table-hover datatables-basic" id="list">
+                            <colgroup>
+                                <col width="5%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="30%">
+                                <col width="10%">
+                                <col width="15%">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date Created</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Issuing Organization</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                            $i = 1;
+                            foreach($certs as $row){
+                                ?>
+                                <tr>
+                                    <td class="text-center"><?php echo $i++; ?></td>
+                                    <td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
+                                    <td class=""><?= $row['name'] ?></td>
+                                    <td class=""><?= $row['course'] ?></td>
+                                    <td class=""><?= $row['school'] ?></td>
+                                    <td>
+                                        <a href="../uploads/<?= $row['document'] ?>" target="_blank" class="btn btn-sm btn-primary">
+                                            <i class="bx bx-download"></i>
+                                        </a>
+                                        <a href="model/delete_cert.php?id=<?= $row['id'] ?>&inmate_id=<?= $row['inmate_id'] ?>"  class="btn btn-sm btn-danger">
+                                            <i class="bx bx-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>
+<!--//education-->
+
 <noscript id="print-header">
     <div>
         <style>
